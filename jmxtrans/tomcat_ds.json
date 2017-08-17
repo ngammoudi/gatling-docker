@@ -1,0 +1,23 @@
+{
+	"servers" : [ {
+		"port" : "8004",
+		"host" : "localhost",
+		"queries" : [ {
+			"outputWriters" : [ {
+				
+				 "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+					"username": "root",
+					"password": "root",
+					"database": "jmxtrans",
+					"url": "http://localhost:8086",
+					"typeNames" : [ "name" ]
+				
+			} ],
+			"obj" : "Catalina:type=DataSource,class=javax.sql.DataSource,name=\"*\"",
+			"resultAlias" : "tomcat.datasources",
+			"attr" : ["maxActive", "numActive", "maxIdle", "numIdle", "minIdle"]
+		} ],
+		"numQueryThreads" : 3
+	} ]
+}
+

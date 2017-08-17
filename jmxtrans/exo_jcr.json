@@ -1,0 +1,78 @@
+{
+  "servers" : [ {
+    "port" : "8004",
+    "host" : "localhost",
+    "queries" : [ {
+      "outputWriters" : [ {
+        "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+	        "username": "root",
+	        "password": "root",
+	        "database": "jmxtrans",
+	        "url": "http://localhost:8086",
+	        "typeNames" : ["portal","repository","workspace"]
+        
+      } ],
+        "obj" : "exo:portal=*,repository=*,workspace=*,service=Cache",
+        "resultAlias" : "exo.jcr.cache",
+        "attr" : [ "Size" ]
+          },
+          {
+              "outputWriters" : [{
+                  "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+	                "username": "root",
+	        		"password": "root",
+	        		"database": "jmxtrans",
+	        		"url": "http://localhost:8086",
+                    "typeNames" : ["portal","repository"]
+                 
+              }],
+                "obj" : "exo:portal=*,repository=*,workspace=system,cache-type=JCR_CACHE,jmx-resource=CacheMgmtInterceptor",
+                "resultAlias" : "exo.jcr.jboss_cache.data",
+                "attr" : ["ElapsedTime","Evictions","Stores","Hits","Misses","NumberOfNodes","NumberOfAttributes","HitMissRatio","ReadWriteRatio","TimeSinceReset"]
+            },
+            {
+                "outputWriters" : [{
+                    "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+	                    "username": "root",
+		        		"password": "root",
+		        		"database": "jmxtrans",
+		        		"url": "http://localhost:8086",
+	                    "typeNames" : ["portal","repository"]
+                    
+                }],
+                "obj" : "exo:portal=*,repository=*,workspace=system,cache-type=LOCK_CACHE,jmx-resource=CacheMgmtInterceptor",
+                "resultAlias" : "exo.jcr.jboss_cache.lock",
+                "attr" : ["ElapsedTime","Evictions","Stores","Hits","Misses","NumberOfNodes","NumberOfAttributes","HitMissRatio","ReadWriteRatio","TimeSinceReset"]
+              },
+              {
+                "outputWriters" : [{
+                  "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+	                  "username": "root",
+			          "password": "root",
+			          "database": "jmxtrans",
+			          "url": "http://localhost:8086",
+	                  "typeNames" : ["name","manager"]
+                  
+                  }],
+                "obj" : "exo2:type=Cache,name=*,manager=*,component=Statistics",
+                "resultAlias" : "exo.jcr.infinispan",
+                "attr" : ["numberOfEntries"]
+              },
+              {
+                  "outputWriters" : [{
+                      "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+	                      "username": "root",
+				          "password": "root",
+				          "database": "jmxtrans",
+				          "url": "http://localhost:8086",
+	                      "typeNames" : ["portal","repository"]
+                     
+                  }],
+                  "obj" : "exo:portal=*,repository=*,service=SessionRegistry",
+                  "resultAlias" : "exo.jcr.session_registry",
+                  "attr" : ["Size","TimeOut"]
+    } ],
+    "numQueryThreads" : 4
+  } ]
+}
+
